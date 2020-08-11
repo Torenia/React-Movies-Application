@@ -1,0 +1,24 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "max-len": ["error", 160],
+    "no-console": [ "error", {
+      "allow": [ "warn", "error"]
+    }],
+    "linebreak-style": "off",
+    "object-curly-newline": "off",
+    "quotes": [2, "single", "avoid-escape"]
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true,
+    "es6": true
+  }
+}
