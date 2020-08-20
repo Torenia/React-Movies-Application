@@ -3,17 +3,16 @@ import PropTypes from 'prop-types';
 
 import { ResultCountNumber, ResultCountText } from '../ResultCountWrapper/ResultCountWrapper';
 
-export default function ResultCount(props) {
+export default function ResultCount({ resultCount }) {
     return (
         <>
-            <ResultCountNumber>{props.resultCount}</ResultCountNumber>
-            <ResultCountText>{props.resultText}</ResultCountText>
+            <ResultCountNumber>{resultCount}</ResultCountNumber>
+            <ResultCountText>&nbsp;movies found</ResultCountText>
         </>
     )
 };
 
 ResultCount.protoTypes ={
-    resultCount: PropTypes.number.isRequired,
-    resultText: PropTypes.string.isRequired
+    resultCount: PropTypes.number.isRequired
 }
 
