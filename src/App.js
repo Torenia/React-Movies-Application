@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.scss';
 
 import Header from './Containers/Header/Header';
@@ -7,14 +7,15 @@ import MoviesList from './Containers/MoviesList/MoviesList';
 import Footer from './Containers/Footer/Footer';
 import ErrorBoundary from './Components/ErrorBoundary/ErrorBoundary';
 
-
 export default function App() {
+    const [searchText, setSearchText] = useState('');
+
     return (
         <>
             <Header />
-            <MovieSearch />
+            <MovieSearch searchText={setSearchText}/>
             <ErrorBoundary>
-                <MoviesList />
+                <MoviesList searchText={searchText}/>
             </ErrorBoundary>
             <Footer />
         </>
