@@ -5,3 +5,15 @@ export const Wrapper = styled.div`
   background-color: #232323;
 `;
 
+export const ErrorBoundaryWrapper = styled(Wrapper)`
+  height: 335px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  h2 {
+    margin: 0;
+    color: #f00;
+  }
+`;
+
