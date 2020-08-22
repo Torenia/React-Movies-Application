@@ -2,7 +2,7 @@ import React from 'react';
 
 import { LogoFirstPart, LogoSecondPart } from '../LogoParts/LogoParts';
 
-export default function ResultCount() {
+export default function Logo() {
     return (
         <>
             <LogoFirstPart>netflix</LogoFirstPart>

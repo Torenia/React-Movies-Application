@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export default class ErrorBoundary extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { error: null, errorInfo: null };
-    }
+import { ErrorBoundaryWrapper } from '../Wrapper/Wrapper';
+
+export default class ErrorBoundary extends Component {
+    state = { error: null, errorInfo: null };
 
     componentDidCatch(error, errorInfo) {
         this.setState({
@@ -15,7 +14,11 @@ export default class ErrorBoundary extends React.Component {
 
     render() {
         if (this.state.errorInfo) {
-            return <h2>Oops, something went wrong... We are doing our best to fix the issue</h2>;
+            return (
+                <ErrorBoundaryWrapper>
+                    <h2>Oops, something went wrong... We are doing our best to fix the issue</h2>
+                </ErrorBoundaryWrapper>
+            )
         }
         return this.props.children;
     }
