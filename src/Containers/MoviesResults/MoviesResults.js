@@ -6,7 +6,7 @@ import { MoviesResultsWrapper } from '../../Components/MoviesWrapper/MoviesWrapp
 import MovieCard from '../../Components/MovieCard/MovieCard';
 import  EmptyResultState from '../../Components/EmptyResultState/EmptyResultState';
 
-export default function MoviesResults({ searchText, resultCount }) {
+export default function MoviesResults({ searchText, resultCount, sortBy, filterBy }) {
     const initMoviesListData = {
         totalAmount: '',
         data: []
@@ -14,9 +14,22 @@ export default function MoviesResults({ searchText, resultCount }) {
 
     const [moviesData, setMoviesData] = useState(initMoviesListData);
     const baseUrl = 'http://localhost:4000/movies';
-    const url = searchText
-        ? `${baseUrl}?searchBy=title&&search=${searchText}`
-        : baseUrl;
+
+    let url = `${baseUrl}?sortBy=${sortBy}&&sortOrder=desc`;
+
+    if (sortBy) {
+        url = `${baseUrl}?sortBy=${sortBy}&&sortOrder=desc`;
+    }
+
+    if(filterBy && filterBy !=='All') {
+        url = `${baseUrl}?filter=${filterBy}`;
+    } else if (filterBy && filterBy ==='All') {
+        url = `${baseUrl}?sortBy=${sortBy}&&sortOrder=desc`;
+    }
+
+    if (searchText) {
+        url = `${baseUrl}?searchBy=title&&search=${searchText}`;
+    }
 
     const fetchMoviesList = useCallback(async () => {
         try {
@@ -61,7 +74,9 @@ export default function MoviesResults({ searchText, resultCount }) {
 
 MoviesResults.protoTypes ={
     searchText: PropTypes.string,
-    resultCount: PropTypes.number
+    resultCount: PropTypes.number,
+    sortBy: PropTypes.string,
+    filterBy: PropTypes.string
 }
 
 
