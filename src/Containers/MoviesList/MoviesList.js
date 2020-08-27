@@ -9,11 +9,16 @@ import { Wrapper } from '../../Components/Wrapper/Wrapper';
 
 export default function MoviesList({ searchText }) {
     const [resultCount, setResultCount] = useState(0);
+    const [sortBy,setSortBy] = useState('release_date');
+    const [filterBy,setFilterBy] = useState('All');
 
     return (
         <Wrapper>
             <MoviesListWrapper>
-                <ResultsMenu/>
+                <ResultsMenu
+                    sortBy={setSortBy}
+                    filterBy={setFilterBy}
+                />
                 {resultCount >0 &&
                     <ResultCount
                         resultCount={resultCount}
@@ -21,6 +26,8 @@ export default function MoviesList({ searchText }) {
                 <MoviesResults
                     searchText={searchText}
                     resultCount={setResultCount}
+                    sortBy={sortBy}
+                    filterBy={filterBy}
                 />
             </MoviesListWrapper>
         </Wrapper>

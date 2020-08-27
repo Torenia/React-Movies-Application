@@ -5,3 +5,36 @@ body {
  h4 {
    margin: 0;
  }
+
+.multi-select {
+  width: 440px;
+  padding: 0 83px;
+  background-color: #232323;
+}
+
+.dropdown-heading {
+  background: #353434 !important;
+  cursor: pointer !important;
+  border: none !important;
+}
+
+.dropdown-heading .dropdown-heading-value span {
+  color: #555 !important;
+  border: none !important;
+}
+
+.dropdown-container {
+  border: none !important;
+}
+
+.dropdown-heading-value {
+  padding-left: 10px;
+}
+
+.label {
+  color: #f65261;
+  text-transform: uppercase;
+  padding: 10px 85px 10px 85px;
+  font-size: 14px;
+  background-color: #232323;
+}
