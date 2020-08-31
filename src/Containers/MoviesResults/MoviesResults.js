@@ -1,18 +1,22 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import { MoviesResultsWrapper } from '../../Components/MoviesWrapper/MoviesWrapper';
 import MovieCard from '../../Components/MovieCard/MovieCard';
 import  EmptyResultState from '../../Components/EmptyResultState/EmptyResultState';
+import { Context } from '../../Components/Context/Context';
 
-export default function MoviesResults({ searchText, resultCount, sortBy, filterBy }) {
+export default function MoviesResults({ searchText, resultCount }) {
     const initMoviesListData = {
         totalAmount: '',
         data: []
     };
 
     const [moviesData, setMoviesData] = useState(initMoviesListData);
+    const sortBy = useContext(Context).sortBy;
+    const filterBy = useContext(Context).filterBy;
+
     const baseUrl = 'http://localhost:4000/movies';
 
     let url = `${baseUrl}?sortBy=${sortBy}&&sortOrder=desc`;
@@ -74,9 +78,7 @@ export default function MoviesResults({ searchText, resultCount, sortBy, filterB
 
 MoviesResults.protoTypes ={
     searchText: PropTypes.string,
-    resultCount: PropTypes.number,
-    sortBy: PropTypes.string,
-    filterBy: PropTypes.string
+    resultCount: PropTypes.number
 }
 
 
