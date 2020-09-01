@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import { MoviesResultsWrapper } from '../../Components/MoviesWrapper/MoviesWrapper';
 import MovieCard from '../../Components/MovieCard/MovieCard';
 import  EmptyResultState from '../../Components/EmptyResultState/EmptyResultState';
+import { Context } from '../../Components/Context/Context';
 
 export default function MoviesResults({ searchText, resultCount }) {
     const initMoviesListData = {
@@ -13,10 +14,26 @@ export default function MoviesResults({ searchText, resultCount }) {
     };
 
     const [moviesData, setMoviesData] = useState(initMoviesListData);
+    const sortBy = useContext(Context).sortBy;
+    const filterBy = useContext(Context).filterBy;
+
     const baseUrl = 'http://localhost:4000/movies';
-    const url = searchText
-        ? `${baseUrl}?searchBy=title&&search=${searchText}`
-        : baseUrl;
+
+    let url = `${baseUrl}?sortBy=${sortBy}&&sortOrder=desc`;
+
+    if (sortBy) {
+        url = `${baseUrl}?sortBy=${sortBy}&&sortOrder=desc`;
+    }
+
+    if(filterBy && filterBy !=='All') {
+        url = `${baseUrl}?filter=${filterBy}`;
+    } else if (filterBy && filterBy ==='All') {
+        url = `${baseUrl}?sortBy=${sortBy}&&sortOrder=desc`;
+    }
+
+    if (searchText) {
+        url = `${baseUrl}?searchBy=title&&search=${searchText}`;
+    }
 
     const fetchMoviesList = useCallback(async () => {
         try {

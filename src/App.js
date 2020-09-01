@@ -6,18 +6,19 @@ import MovieSearch from './Containers/MovieSearch/MovieSearch';
 import MoviesList from './Containers/MoviesList/MoviesList';
 import Footer from './Containers/Footer/Footer';
 import ErrorBoundary from './Components/ErrorBoundary/ErrorBoundary';
+import { Context } from './Components/Context/Context';
 
 export default function App() {
     const [searchText, setSearchText] = useState('');
 
     return (
-        <>
-            <Header />
-            <MovieSearch searchText={setSearchText}/>
+        <Context.Provider value={{ searchText, setSearchText }}>
+            <Header/>
+            <MovieSearch/>
             <ErrorBoundary>
-                <MoviesList searchText={searchText}/>
+                <MoviesList/>
             </ErrorBoundary>
-            <Footer />
-        </>
+            <Footer/>
+        </Context.Provider>
     );
 }
