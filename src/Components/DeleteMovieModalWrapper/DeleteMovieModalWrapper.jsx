@@ -14,5 +14,8 @@ export const DeleteMovieModalWrapper = styled.div`
    position: relative;
    left: 300px;
    top: 40px;
+   background: #f65261;
+   width: 160px;
+   border-radius: 5%;
   }
 `;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { MovieCardWrapper } from '../MovieCardWrapper/MovieCardWrapper'
@@ -21,9 +22,11 @@ export default function MovieCard(props) {
             {isShowDropdown &&
             <MovieCardEditDropdown showDropdown={setIsShownDropdown}/>
             }
-            <MovieCardImg>
-                <img src={props.srcImg} alt={props.title} width="300" height="455"/>
-            </MovieCardImg>
+            <Link to={`/movies/${props.id}`}>
+                <MovieCardImg>
+                    <img src={props.srcImg} alt={props.title} width="300" height="455"/>
+                </MovieCardImg>
+            </Link>
             <MovieDescriptionTitle>
                 <h4>{props.title}</h4>
                 <MovieReleaseDate>{props.releaseDate}</MovieReleaseDate>
@@ -37,7 +40,8 @@ MovieCard.protoTypes ={
     title: PropTypes.string.isRequired,
     srcImg: PropTypes.string.isRequired,
     releaseDate: PropTypes.string.isRequired,
-    genres: PropTypes.array.isRequired
+    genres: PropTypes.array.isRequired,
+    id: PropTypes.number.isRequired
 }
 
 
