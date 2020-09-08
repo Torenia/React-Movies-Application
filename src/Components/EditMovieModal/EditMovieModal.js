@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import AddEditMovieModalForm from '../AddEditMovieModalForm/AddEditMovieModalForm';
 
-export default function EditMovieModal({ isShownMovieModal }) {
+export default function EditMovieModal({ isShowing, toggle }) {
     const options = [
         { label: 'Adventure', value: 'Adventure' },
         { label: 'Music', value: 'Music' },
@@ -15,12 +15,14 @@ export default function EditMovieModal({ isShownMovieModal }) {
             header="Edit Movie"
             showMovieIdRow={true}
             buttonName="Save"
-            isShownMovieModal={isShownMovieModal}
+            isShowing={isShowing}
+            toggle={toggle}
         />
     )
 };
 
 EditMovieModal.propTypes = {
-    isShownMovieModal: PropTypes.func
+    isShowing: PropTypes.bool,
+    toggle: PropTypes.func
 };
 
