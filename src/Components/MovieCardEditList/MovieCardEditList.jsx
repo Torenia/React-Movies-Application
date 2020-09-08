@@ -47,7 +47,7 @@ export const MovieCardEditList = styled.div`
       outline:none;
     }
   
-    &:after {
+    &:first-child:after {
        content: "\\2716";
        display: inline-block;
        color: #fff;

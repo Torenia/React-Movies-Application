@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
 
 import { MovieModalWindow } from '../MovieModalWindow/MovieModalWindow';
 import { AddEditMovieFormRow } from '../AddEditMovieFormRow/AddEditMovieFormRow';
@@ -7,13 +8,12 @@ import { MovieModalHeader } from '../MovieModalHeader/MovieModalHeader';
 import { Button, ResetButton } from '../Button/Button';
 import MultiSelectDropdown from '../MultiSelectDropdown/MultiSelectDropdown';
 
-export default function AddEditMovieModalForm({ options, header, showMovieIdRow, buttonName, isShownMovieModal }) {
-
-    return (
+const AddEditMovieModalForm = ({ options, header, showMovieIdRow, buttonName, isShowing, toggle }) => isShowing
+    ? ReactDOM.createPortal(
         <MovieModalWindow>
                 <form>
                     <MovieModalHeader>
-                        <span onClick={() => isShownMovieModal(false)}/>
+                        <span onClick={toggle}/>
                         <h1>{header}</h1>
                     </MovieModalHeader>
                     {showMovieIdRow && <AddEditMovieFormRow>
@@ -71,15 +71,16 @@ export default function AddEditMovieModalForm({ options, header, showMovieIdRow,
                         <Button type="submit">{buttonName}</Button>
                     </AddEditMovieFormRow>
                 </form>
-        </MovieModalWindow>
-    )
-};
+        </MovieModalWindow>, document.getElementById('modal-root')
+    ): null;
 
 AddEditMovieModalForm.propTypes = {
     options: PropTypes.array,
     header: PropTypes.string,
     showMovieIdRow: PropTypes.bool,
     buttonName: PropTypes.string,
-    isShownMovieModal: PropTypes.func
+    isShowing: PropTypes.bool,
+    toggle: PropTypes.func
 };
 
+export default AddEditMovieModalForm;

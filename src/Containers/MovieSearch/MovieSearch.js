@@ -3,13 +3,13 @@ import React, { useContext, useState } from 'react';
 import { Wrapper } from '../../Components/Wrapper/Wrapper';
 import { MovieSearchWrapper } from '../../Components/MovieSearchWrapper/MovieSearchWrapper';
 import { SearchBox } from '../../Components/SearchBox/SearchBox';
-import MovieModal from '../MovieModal/MovieModal';
 import AddMovieModal from '../../Components/AddMovieModal/AddMovieModal';
 import { Context } from '../../Components/Context/Context';
+import { useModal } from '../../Hooks/useModal';
 
 export default function MovieSearch() {
     const [input, setInput] = useState('');
-    const [isShownMovieModal, setIsShownAddMovieModal] = useState(false);
+    const {isShowing, toggle} = useModal();
     const { setSearchText} = useContext(Context);
 
     const handleSearch = ({ key }) => {
@@ -21,13 +21,12 @@ export default function MovieSearch() {
     return (
         <Wrapper>
             <MovieSearchWrapper>
-                <button onClick={() => setIsShownAddMovieModal(true)}>+ add movie</button>
+                <button onClick={toggle}>+ add movie</button>
                 <h1>find your movie</h1>
-                {isShownMovieModal && <MovieModal>
-                    <AddMovieModal
-                        isShownMovieModal={setIsShownAddMovieModal}
-                    />
-                </MovieModal>}
+                <AddMovieModal
+                    isShowing={isShowing}
+                    toggle={toggle}
+                />
                 <SearchBox>
                     <input type="text"
                            placeholder="What do you want to watch?"
