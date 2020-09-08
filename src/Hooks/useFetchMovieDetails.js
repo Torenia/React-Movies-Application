@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 
-export const getMovieDetails = (id) => {
+export const useFetchMovieDetails = (id) => {
     const [movieData, setMovieData] = useState({});
     const url = `http://localhost:4000/movies/${id}`;
 
@@ -22,7 +22,7 @@ export const getMovieDetails = (id) => {
         fetchMovieDetails();
     }, [url]);
 
-    return movieData;
+    return [movieData];
 }
 
 

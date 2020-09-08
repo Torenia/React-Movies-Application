@@ -7,11 +7,11 @@ import { SearchButton } from '../../Components/SearchButton/SearchButton';
 import { MovieDetailsWrapper } from '../../Components/MovieDetailsWrapper/MovieDetailsWrapper';
 import { MovieDetailsDescription } from '../../Components/MovieDetailsDescription/MovieDetailsDescription';
 import { MovieCardImg } from '../../Components/MovieCardImg/MovieCardImg';
-import { getMovieDetails } from './MovieDetailsUtils';
+import { useFetchMovieDetails } from '../../Hooks/useFetchMovieDetails';
 
 export default function MovieDetails(props) {
     const { id } = props.match.params;
-    const movieData = getMovieDetails(id);
+    const [movieData] = useFetchMovieDetails(id);
 
     return (
         <Wrapper>
