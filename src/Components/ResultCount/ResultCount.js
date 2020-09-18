@@ -1,18 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import { ResultCountNumber, ResultCountText } from '../ResultCountWrapper/ResultCountWrapper';
 
-export default function ResultCount({ resultCount }) {
+export default function ResultCount() {
+    const totalAmount = useSelector(store => store.totalAmount);
+
     return (
         <>
-            <ResultCountNumber>{resultCount}</ResultCountNumber>
+            <ResultCountNumber>{totalAmount}</ResultCountNumber>
             <ResultCountText>&nbsp;movies found</ResultCountText>
         </>
     )
 };
-
-ResultCount.protoTypes ={
-    resultCount: PropTypes.number.isRequired
-}
-

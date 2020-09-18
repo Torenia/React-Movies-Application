@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import AddEditMovieModalForm from '../AddEditMovieModalForm/AddEditMovieModalForm';
 
-export default function AddMovieModal({ isShowing, toggle }) {
+export default function AddMovieModal() {
     const options = [
         { label: 'Adventure', value: 'Adventure' },
         { label: 'Drama', value: 'Drama' },
@@ -18,14 +17,7 @@ export default function AddMovieModal({ isShowing, toggle }) {
             header="Add Movie"
             showMovieIdRow={false}
             buttonName="Submit"
-            isShowing={isShowing}
-            toggle={toggle}
         />
     )
-};
-
-AddMovieModal.propTypes = {
-    isShowing: PropTypes.bool,
-    toggle: PropTypes.func
 };
 

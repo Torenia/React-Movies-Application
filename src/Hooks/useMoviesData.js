@@ -1,13 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import axios from 'axios';
 
-export function useAsyncHook(sortBy, filterBy, searchText, resultCount) {
-    const initMoviesListData = {
-        totalAmount: '',
-        data: []
-    };
+import { setMoviesData } from '../store/movies.reducer';
+import { useDispatch, useSelector } from 'react-redux';
 
-    const [moviesData, setMoviesData] = useState(initMoviesListData);
+export function useMoviesData(sortBy, filterBy, searchText) {
+    const dispatch = useDispatch();
+    const state = useSelector(store=> store);
 
     const baseUrl = 'http://localhost:4000/movies';
 
@@ -30,26 +29,18 @@ export function useAsyncHook(sortBy, filterBy, searchText, resultCount) {
     const fetchMoviesList = useCallback(async () => {
         try {
             const response = await axios.get(url);
-            const {
-                totalAmount,
-                data
-            } = response.data;
 
-            setMoviesData({
-                totalAmount,
-                data
-            });
-            resultCount(totalAmount);
+            dispatch(setMoviesData(response.data));
         } catch (e) {
             console.error(e);
         }
-    }, [url]);
+    }, [dispatch, url]);
 
     useEffect(() => {
         fetchMoviesList();
     }, [url]);
 
-    return [moviesData];
+    return [state];
 }
 
 
