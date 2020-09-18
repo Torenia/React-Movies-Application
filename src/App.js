@@ -9,6 +9,9 @@ import Footer from './Containers/Footer/Footer';
 import MovieDetails from './Containers/MovieDetails/MovieDetails';
 import ErrorBoundary from './Components/ErrorBoundary/ErrorBoundary';
 import { Context } from './Components/Context/Context';
+import AddMovieModal from './Components/AddMovieModal/AddMovieModal';
+import EditMovieModal from './Components/EditMovieModal/EditMovieModal';
+import DeleteMovieModal from './Components/DeleteMovieModal/DeleteMovieModal';
 
 export default function App() {
     const [searchText, setSearchText] = useState('');
@@ -20,6 +23,11 @@ export default function App() {
                 <Switch>
                     <Route path="/movies/:id" component={ MovieDetails }/>
                     <Route path="/" component={ MovieSearch }/>
+                </Switch>
+                <Switch>
+                    <Route path="/edit/movie/:id" component={ EditMovieModal }/>
+                    <Route path="/add/movie" component={ AddMovieModal }/>
+                    <Route path="/delete/movie/:id" component={ DeleteMovieModal }/>
                 </Switch>
                 <ErrorBoundary>
                     <MoviesList/>

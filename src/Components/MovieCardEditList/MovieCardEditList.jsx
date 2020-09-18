@@ -13,6 +13,11 @@ export const MovieCardEditList = styled.div`
     list-style-type: none;
     padding: 0;
     margin: 35px 0 0;
+    
+    a {
+      color: #fff;
+      text-decoration: none;
+    } 
   
     li {
       padding: 10px 0;
@@ -22,11 +27,6 @@ export const MovieCardEditList = styled.div`
       &:hover{
         background-color: #f65261;
       }
-  
-       a {
-         color: #fff;
-         text-decoration: none;
-        } 
     }
   }
   
