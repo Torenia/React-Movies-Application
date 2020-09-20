@@ -5,7 +5,7 @@ import rootReducer from './movies.reducer';
 const store = configureStore({
     reducer: rootReducer,
     devTools: true,
-    middleware: [...getDefaultMiddleware()]
+    middleware: [...getDefaultMiddleware({serializableCheck: false})]
 });
 
 export default store;

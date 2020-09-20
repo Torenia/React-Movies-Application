@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
-import axios from 'axios';
 
-import { setMoviesData } from '../store/movies.reducer';
+import { getMoviesList } from '../store/movies.reducer';
 import { useDispatch, useSelector } from 'react-redux';
 
 export function useMoviesData(sortBy, filterBy, searchText) {
@@ -27,13 +26,7 @@ export function useMoviesData(sortBy, filterBy, searchText) {
     }
 
     const fetchMoviesList = useCallback(async () => {
-        try {
-            const response = await axios.get(url);
-
-            dispatch(setMoviesData(response.data));
-        } catch (e) {
-            console.error(e);
-        }
+        dispatch(getMoviesList(url));
     }, [dispatch, url]);
 
     useEffect(() => {

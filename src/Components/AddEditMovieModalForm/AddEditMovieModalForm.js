@@ -1,71 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios';
 
 import { MovieModalWindow } from '../MovieModalWindow/MovieModalWindow';
 import { AddEditMovieFormRow } from '../AddEditMovieFormRow/AddEditMovieFormRow';
 import { MovieModalHeader } from '../MovieModalHeader/MovieModalHeader';
 import { Button, ResetButton } from '../Button/Button';
 import MultiSelectDropdown from '../MultiSelectDropdown/MultiSelectDropdown';
-import { updateMovie } from '../../utils/updateMovie';
-import { editMovie, clearMovieDetailsData, createMovie } from '../../store/movies.reducer';
+import { updateMovie, addMovie } from '../../store/movies.reducer';
 
-const AddEditMovieModalForm = ({ options, header, showMovieIdRow, buttonName, movieId }) => {
+const AddEditMovieModalForm = ({ options, genres, header, showMovieIdRow, buttonName, movieId }) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const state = useSelector(store => store.movie);
-    const [id, setId] = useState('');
-    const [title, setTitle] = useState('');
-    const [release_date, setRelease_date] = useState('');
-    const [poster_path, setPoster_path] = useState('');
-    const [genres, setGenres] = useState(options);
-    const [overview, setOverview] = useState('');
-    const [runtime, setRuntime] = useState('');
+    const state = useSelector(store => store.data.find(item => item.id.toString() === movieId));
+    const error = useSelector(store => store.error);
 
-    const movieDetails = {
-        id,
-        title,
-        release_date,
-        poster_path,
-        genres,
-        overview,
-        runtime: runtime ? Number(runtime) : runtime
-    }
-    useEffect(() => {
-        setId(state.id);
-        setTitle(state.title);
-        setRelease_date(state.release_date);
-        setPoster_path(state.poster_path);
-        setOverview(state.overview);
-        setRuntime(state.runtime);
-    }, [state]);
+    const [movieData, setMovieData] = useState({
+        id: state?.id,
+        title: state?.title || '',
+        release_date: state?.release_date || '',
+        poster_path: state?.poster_path || '',
+        genres: state?.genres || genres,
+        overview: state?.overview || '',
+        runtime: state?.runtime || '',
+    });
 
-    useEffect(() => {
-        dispatch(editMovie(movieDetails));
-    }, [movieDetails]);
+    const handleOnChange = e => {
+        e.target.name === 'runtime'
+            ? setMovieData({
+                ...movieData,
+                [e.target.name]: Number(e.target.value)
+            }) :
+            setMovieData({
+                ...movieData,
+                [e.target.name]: e.target.value
+            });
+    };
 
-    const handleUpdateMovie = (() => {
+    const handleUpdateMovie = ((e) => {
         if(movieId) {
-            updateMovie(state);
+            dispatch(updateMovie(movieData));
         } else {
-            try {
-                axios.post('http://localhost:4000/movies', state).then(res => dispatch(createMovie(res.data)));
-            } catch (e) {
-                console.error(e);
-            }
+            dispatch(addMovie(movieData));
         }
-        dispatch(clearMovieDetailsData({}));
-        history.push('/');
+        if (!error) {
+            history.push('/');
+        } else {
+            e.preventDefault();
+            console.error(error);
+        }
     });
 
     return ReactDOM.createPortal(
         <MovieModalWindow>
             <form>
                 <MovieModalHeader>
-                    <Link to={'/'} onClick={()=>dispatch(clearMovieDetailsData({}))}>
+                    <Link to={'/'}>
                         <span/>
                     </Link>
                     <h1>{header}</h1>
@@ -76,8 +68,8 @@ const AddEditMovieModalForm = ({ options, header, showMovieIdRow, buttonName, mo
                         type="text"
                         id="movie-id"
                         name="id"
-                        defaultValue={id}
-                        onChange={e => setId(e.target.value)}
+                        defaultValue={movieData.id}
+                        onChange={handleOnChange}
                     />
                 </AddEditMovieFormRow>}
                 <AddEditMovieFormRow>
@@ -87,8 +79,8 @@ const AddEditMovieModalForm = ({ options, header, showMovieIdRow, buttonName, mo
                         placeholder="Title"
                         id="title"
                         name="title"
-                        defaultValue={title}
-                        onChange={e => setTitle(e.target.value)}
+                        defaultValue={movieData.title}
+                        onChange={handleOnChange}
                     />
                 </AddEditMovieFormRow>
                 <AddEditMovieFormRow>
@@ -104,8 +96,8 @@ const AddEditMovieModalForm = ({ options, header, showMovieIdRow, buttonName, mo
                             e.currentTarget.type = 'text'
                         }}
                         name="release_date"
-                        defaultValue={release_date}
-                        onChange={e => setRelease_date(e.target.value)}
+                        defaultValue={movieData.release_date}
+                        onChange={handleOnChange}
                     />
                 </AddEditMovieFormRow>
                 <AddEditMovieFormRow>
@@ -115,11 +107,11 @@ const AddEditMovieModalForm = ({ options, header, showMovieIdRow, buttonName, mo
                         placeholder="Movie URL here"
                         id="url"
                         name="poster_path"
-                        defaultValue={poster_path}
-                        onChange={e => setPoster_path(e.target.value)}
+                        defaultValue={movieData.poster_path}
+                        onChange={handleOnChange}
                     />
                 </AddEditMovieFormRow>
-                <MultiSelectDropdown options={options} selectedOptions={state ? state.genres : options}/>
+                <MultiSelectDropdown options={options} selectedOptions={movieData.genres}/>
                 <AddEditMovieFormRow>
                     <label htmlFor="overview">Overview</label>
                     <input
@@ -127,8 +119,8 @@ const AddEditMovieModalForm = ({ options, header, showMovieIdRow, buttonName, mo
                         placeholder="Overview here"
                         id="overview"
                         name="overview"
-                        defaultValue={overview}
-                        onChange={e => setOverview(e.target.value)}
+                        defaultValue={movieData.overview}
+                        onChange={handleOnChange}
                     />
                 </AddEditMovieFormRow>
                 <AddEditMovieFormRow>
@@ -138,8 +130,8 @@ const AddEditMovieModalForm = ({ options, header, showMovieIdRow, buttonName, mo
                         placeholder="Runtime here"
                         id="runtime"
                         name="runtime"
-                        defaultValue={runtime}
-                        onChange={e => setRuntime(e.target.value)}
+                        defaultValue={movieData.runtime}
+                        onChange={handleOnChange}
                     />
                 </AddEditMovieFormRow>
                 <AddEditMovieFormRow>
@@ -153,6 +145,7 @@ const AddEditMovieModalForm = ({ options, header, showMovieIdRow, buttonName, mo
 
 AddEditMovieModalForm.propTypes = {
     options: PropTypes.array,
+    genres: PropTypes.array,
     header: PropTypes.string,
     showMovieIdRow: PropTypes.bool,
     buttonName: PropTypes.string,

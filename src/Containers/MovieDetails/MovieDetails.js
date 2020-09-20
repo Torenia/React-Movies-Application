@@ -1,24 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Wrapper } from '../../Components/Wrapper/Wrapper';
 import { SearchButton } from '../../Components/SearchButton/SearchButton';
 import { MovieDetailsWrapper } from '../../Components/MovieDetailsWrapper/MovieDetailsWrapper';
 import { MovieDetailsDescription } from '../../Components/MovieDetailsDescription/MovieDetailsDescription';
 import { MovieCardImg } from '../../Components/MovieCardImg/MovieCardImg';
-import { useMovieDetails } from '../../Hooks/useMovieDetails';
-import { clearMovieDetailsData } from '../../store/movies.reducer';
+import { getMovieData } from '../../store/movies.reducer';
 
 export default function MovieDetails(props) {
     const { id } = props.match.params;
     const dispatch = useDispatch();
-    const [state] = useMovieDetails(id);
+    const state = useSelector(store => store.movie);
+
+    useEffect(() => {
+        dispatch(getMovieData(id));
+    }, [id]);
 
     return (
         <Wrapper>
-            <Link to={'/'} onClick={() => dispatch(clearMovieDetailsData({}))}>
+            <Link to={'/'}>
             <SearchButton><i className="fa fa-search fa-flip-horizontal"/></SearchButton>
             </Link>
             <MovieDetailsWrapper>
