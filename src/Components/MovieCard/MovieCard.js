@@ -18,10 +18,8 @@ export default function MovieCard(props) {
     return (
         <MovieCardWrapper onMouseEnter={() => setIsShownIcon(true)}
                           onMouseLeave={() => setIsShownIcon(false)}>
-            {isShownIcon && (<MovieCardIcon onClick={onClick}/>)}
-            {isShowDropdown &&
-            <MovieCardEditDropdown showDropdown={setIsShownDropdown}/>
-            }
+            {isShownIcon && <MovieCardIcon onClick={onClick}/>}
+            {isShowDropdown && <MovieCardEditDropdown showDropdown={setIsShownDropdown} id={props.id}/>}
             <Link to={`/movies/${props.id}`}>
                 <MovieCardImg>
                     <img src={props.srcImg} alt={props.title} width="300" height="455"/>
@@ -31,7 +29,7 @@ export default function MovieCard(props) {
                 <h4>{props.title}</h4>
                 <MovieReleaseDate>{props.releaseDate}</MovieReleaseDate>
             </MovieDescriptionTitle>
-            <MovieDescriptionGenre>{props.genres.join(', ')}</MovieDescriptionGenre>
+            <MovieDescriptionGenre>{props?.genres?.join(', ')}</MovieDescriptionGenre>
         </MovieCardWrapper>
     )
 };
