@@ -1,34 +1,26 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { MovieCardEditList } from '../MovieCardEditList/MovieCardEditList';
-import EditMovieModal from '../EditMovieModal/EditMovieModal';
-import DeleteMovieModal from '../DeleteMovieModal/DeleteMovieModal';
-import { useModal } from '../../Hooks/useModal';
 
-export default function MovieCardEditDropdown({ showDropdown }) {
-    const [isShownDeleteMovieModal, setIsShownDeleteMovieModal] = useState(false);
-    const {isShowing, toggle} = useModal();
-
+export default function MovieCardEditDropdown({ showDropdown, id }) {
     return (
         <MovieCardEditList>
             <button onClick={() => showDropdown(false)}/>
-            <EditMovieModal
-                isShowing={isShowing}
-                toggle={toggle}
-            />
-            {isShownDeleteMovieModal &&
-            <DeleteMovieModal
-                isShownMovieModal={setIsShownDeleteMovieModal}
-            />}
             <ul>
-                <li onClick={toggle}><a href="#">Edit</a></li>
-                <li onClick={() => setIsShownDeleteMovieModal(true)}><a href="#">Delete</a></li>
+                <Link to={`/edit/movie/${id}`}>
+                    <li>Edit</li>
+                </Link>
+                <Link to={`/delete/movie/${id}`}>
+                    <li>Delete</li>
+                </Link>
             </ul>
         </MovieCardEditList>
     )
 };
 
 MovieCardEditDropdown.protoTypes ={
-    showDropdown: PropTypes.bool.isRequired
+    showDropdown: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired
 }

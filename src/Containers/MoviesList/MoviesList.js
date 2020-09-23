@@ -6,26 +6,21 @@ import  ResultsMenu from '../ResultsMenu/ResultsMenu';
 import { MoviesListWrapper } from '../../Components/MoviesWrapper/MoviesWrapper';
 import { Wrapper } from '../../Components/Wrapper/Wrapper';
 import { Context } from '../../Components/Context/Context';
+import { useMoviesData } from '../../Hooks/useMoviesData';
 
 export default function MoviesList() {
-    const [resultCount, setResultCount] = useState(0);
     const [sortBy,setSortBy] = useState('release_date');
     const [filterBy,setFilterBy] = useState('All');
     const searchText = useContext(Context).searchText;
+    const [state] = useMoviesData();
 
     return (
         <Context.Provider value={{ sortBy, setSortBy, filterBy, setFilterBy }}>
             <Wrapper>
                 <MoviesListWrapper>
                     <ResultsMenu/>
-                    {resultCount > 0 &&
-                    <ResultCount
-                        resultCount={resultCount}
-                    />}
-                    <MoviesResults
-                        searchText={searchText}
-                        resultCount={setResultCount}
-                    />
+                    {state.totalAmount > 0 && <ResultCount/>}
+                    <MoviesResults searchText={searchText}/>
                 </MoviesListWrapper>
             </Wrapper>
         </Context.Provider>

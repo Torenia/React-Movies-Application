@@ -1,28 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import AddEditMovieModalForm from '../AddEditMovieModalForm/AddEditMovieModalForm';
+import { getMovieData } from '../../store/movies.reducer';
 
-export default function EditMovieModal({ isShowing, toggle }) {
-    const options = [
-        { label: 'Adventure', value: 'Adventure' },
-        { label: 'Music', value: 'Music' },
-    ];
+export default function EditMovieModal(props) {
+    const { id } = props.match.params;
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getMovieData(id));
+    }, [id]);
 
     return (
         <AddEditMovieModalForm
-            options={options}
             header="Edit Movie"
             showMovieIdRow={true}
             buttonName="Save"
-            isShowing={isShowing}
-            toggle={toggle}
+            movieId={id}
         />
     )
 };
 
 EditMovieModal.propTypes = {
-    isShowing: PropTypes.bool,
-    toggle: PropTypes.func
+    match: PropTypes.object.isRequired,
 };
-
