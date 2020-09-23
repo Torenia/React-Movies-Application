@@ -15,13 +15,15 @@ export default function DeleteMovieModal(props) {
     const dispatch = useDispatch();
     const error = useSelector(store => store.error);
 
-    const handleDeleteMovie = useCallback(() => {
-        dispatch(deleteMovie(id));
-        if (!error) {
-            history.push('/');
-        } else {
-            e.preventDefault();
+    const handleDeleteMovie = useCallback(async () => {
+        try {
+            const data = await dispatch(deleteMovie(id));
+            if(!data.error){
+                history.push('/');
+            }
+        } catch (e) {
             console.error(error);
+            throw e;
         }
     }, [dispatch, id]);
 
