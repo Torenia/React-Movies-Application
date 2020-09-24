@@ -3,59 +3,83 @@ import ReactDOM from 'react-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
+import { useFormik } from 'formik';
 
 import { MovieModalWindow } from '../MovieModalWindow/MovieModalWindow';
 import { AddEditMovieFormRow } from '../AddEditMovieFormRow/AddEditMovieFormRow';
 import { MovieModalHeader } from '../MovieModalHeader/MovieModalHeader';
 import { Button, ResetButton } from '../Button/Button';
+import { Error } from '../Error/Error';
 import MultiSelectDropdown from '../MultiSelectDropdown/MultiSelectDropdown';
 import { updateMovie, addMovie } from '../../store/movies.reducer';
 
-const AddEditMovieModalForm = ({ options, genres, header, showMovieIdRow, buttonName, movieId }) => {
+const prepareGenres = (value = []) => value.map(genre => genre.value);
+
+const prepareOptions = (value = []) =>
+    value.map(genre => ({
+        label: genre,
+        value: genre,
+    }));
+
+const AddEditMovieModalForm = ({ header, showMovieIdRow, buttonName, movieId }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const state = useSelector(store => store.data.find(item => item.id.toString() === movieId));
     const error = useSelector(store => store.error);
+    const [selected, setSelected] = useState(prepareOptions(state?.genres));
 
-    const [movieData, setMovieData] = useState({
-        id: state?.id,
-        title: state?.title || '',
-        release_date: state?.release_date || '',
-        poster_path: state?.poster_path || '',
-        genres: state?.genres || genres,
-        overview: state?.overview || '',
-        runtime: state?.runtime || '',
-    });
-
-    const handleOnChange = e => {
-        e.target.name === 'runtime'
-            ? setMovieData({
-                ...movieData,
-                [e.target.name]: Number(e.target.value)
-            }) :
-            setMovieData({
-                ...movieData,
-                [e.target.name]: e.target.value
-            });
+    const validate = values => {
+        const errors = {};
+        if (!values.title) {
+            errors.title = 'Required';
+        }
+        if (!values.release_date) {
+            errors.release_date = 'Required';
+        }
+        if (!values.poster_path) {
+            errors.poster_path = 'Required';
+        }
+        if (!values.overview) {
+            errors.overview = 'Required';
+        }
+        if (!values.runtime) {
+            errors.runtime = 'Required';
+        } else if (!/^[0-9]+$/i.test(values.runtime)) {
+            errors.runtime = 'Runtime must be a number';
+        }
+        return errors;
     };
 
-    const handleUpdateMovie = ((e) => {
-        if(movieId) {
-            dispatch(updateMovie(movieData));
-        } else {
-            dispatch(addMovie(movieData));
-        }
-        if (!error) {
-            history.push('/');
-        } else {
-            e.preventDefault();
-            console.error(error);
-        }
-    });
+    const formik = useFormik({
+        initialValues: {
+            id: state?.id,
+            title: state?.title || '',
+            release_date: state?.release_date || '',
+            poster_path: state?.poster_path || '',
+            genres: state?.genres || [],
+            overview: state?.overview || '',
+            runtime: state?.runtime || ''
+        },
+        validate,
+        onSubmit: ((values, actions) => {
+            formik.values.genres = prepareGenres(selected);
+            formik.values.runtime = Number(formik.values.runtime);
+            if (movieId) {
+                dispatch(updateMovie(values));
+            } else {
+                dispatch(addMovie(values));
+            }
+            if (!error) {
+                history.push('/');
+            } else {
+                console.error(error);
+            }
+        })
+    })
 
     return ReactDOM.createPortal(
         <MovieModalWindow>
-            <form>
+            <form onSubmit={formik.handleSubmit}>
                 <MovieModalHeader>
                     <Link to={'/'}>
                         <span/>
@@ -68,8 +92,8 @@ const AddEditMovieModalForm = ({ options, genres, header, showMovieIdRow, button
                         type="text"
                         id="movie-id"
                         name="id"
-                        defaultValue={movieData.id}
-                        onChange={handleOnChange}
+                        defaultValue={formik.values.id}
+                        onChange={formik.handleChange}
                     />
                 </AddEditMovieFormRow>}
                 <AddEditMovieFormRow>
@@ -79,9 +103,10 @@ const AddEditMovieModalForm = ({ options, genres, header, showMovieIdRow, button
                         placeholder="Title"
                         id="title"
                         name="title"
-                        defaultValue={movieData.title}
-                        onChange={handleOnChange}
+                        defaultValue={formik.values.title}
+                        onChange={formik.handleChange}
                     />
+                    {formik.errors.title ? <Error>{formik.errors.title}</Error> : null}
                 </AddEditMovieFormRow>
                 <AddEditMovieFormRow>
                     <label htmlFor="date">Release date</label>
@@ -96,9 +121,10 @@ const AddEditMovieModalForm = ({ options, genres, header, showMovieIdRow, button
                             e.currentTarget.type = 'text'
                         }}
                         name="release_date"
-                        defaultValue={movieData.release_date}
-                        onChange={handleOnChange}
+                        defaultValue={formik.values.release_date}
+                        onChange={formik.handleChange}
                     />
+                    {formik.errors.release_date ? <Error>{formik.errors.release_date}</Error> : null}
                 </AddEditMovieFormRow>
                 <AddEditMovieFormRow>
                     <label htmlFor="url">Movie URL</label>
@@ -107,11 +133,16 @@ const AddEditMovieModalForm = ({ options, genres, header, showMovieIdRow, button
                         placeholder="Movie URL here"
                         id="url"
                         name="poster_path"
-                        defaultValue={movieData.poster_path}
-                        onChange={handleOnChange}
+                        defaultValue={formik.values.poster_path}
+                        onChange={formik.handleChange}
                     />
+                    {formik.errors.poster_path ? <Error>{formik.errors.poster_path}</Error> : null}
                 </AddEditMovieFormRow>
-                <MultiSelectDropdown options={options} selectedOptions={movieData.genres}/>
+                <MultiSelectDropdown
+                    selectedOptions={formik.values.genres}
+                    onChange={setSelected}
+                    value={selected}
+                />
                 <AddEditMovieFormRow>
                     <label htmlFor="overview">Overview</label>
                     <input
@@ -119,9 +150,10 @@ const AddEditMovieModalForm = ({ options, genres, header, showMovieIdRow, button
                         placeholder="Overview here"
                         id="overview"
                         name="overview"
-                        defaultValue={movieData.overview}
-                        onChange={handleOnChange}
+                        defaultValue={formik.values.overview}
+                        onChange={formik.handleChange}
                     />
+                    {formik.errors.overview ? <Error>{formik.errors.overview}</Error> : null}
                 </AddEditMovieFormRow>
                 <AddEditMovieFormRow>
                     <label htmlFor="runtime">Runtime</label>
@@ -130,13 +162,14 @@ const AddEditMovieModalForm = ({ options, genres, header, showMovieIdRow, button
                         placeholder="Runtime here"
                         id="runtime"
                         name="runtime"
-                        defaultValue={movieData.runtime}
-                        onChange={handleOnChange}
+                        defaultValue={formik.values.runtime}
+                        onChange={formik.handleChange}
                     />
+                    {formik.errors.runtime ? <Error>{formik.errors.runtime}</Error> : null}
                 </AddEditMovieFormRow>
                 <AddEditMovieFormRow>
                     <ResetButton>Reset</ResetButton>
-                    <Button type="submit" onClick={handleUpdateMovie}>{buttonName}</Button>
+                    <Button type="submit">{buttonName}</Button>
                 </AddEditMovieFormRow>
             </form>
         </MovieModalWindow>, document.getElementById('modal-root')
@@ -144,8 +177,6 @@ const AddEditMovieModalForm = ({ options, genres, header, showMovieIdRow, button
 }
 
 AddEditMovieModalForm.propTypes = {
-    options: PropTypes.array,
-    genres: PropTypes.array,
     header: PropTypes.string,
     showMovieIdRow: PropTypes.bool,
     buttonName: PropTypes.string,
