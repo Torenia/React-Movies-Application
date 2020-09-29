@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import MultiSelect from 'react-multi-select-component';
+
+const genres = ['Adventure', 'Drama', 'Family', 'Music', 'Animation', 'Science Fiction', 'Fantasy', 'Action', 'Romance',
+    'Comedy', 'Mystery', 'Thriller', 'War', 'Crime'];
 
 const prepareOptions = (value = []) =>
     value.map(genre => ({
@@ -9,26 +12,21 @@ const prepareOptions = (value = []) =>
         value: genre,
     }));
 
-const MultiSelectDropdown = ({ options, selectedOptions }) => {
-    const [selected, setSelected] = useState([]);
-    const genreOptions = selectedOptions?.length ? prepareOptions(selectedOptions) : options;
-
-    return (
-        <>
-            <div className="label">Genre</div>
-            <MultiSelect
-                options={genreOptions}
-                value={selected}
-                onChange={setSelected}
-                labelledBy={'Select Genre'}
-            />
-        </>
-    );
-};
+const MultiSelectDropdown = ({ onChange, value }) => (
+    <>
+        <div className="label">Genre</div>
+        <MultiSelect
+            options={prepareOptions(genres)}
+            value={value}
+            onChange={onChange}
+            labelledBy={'Select Genre'}
+        />
+    </>
+);
 
 export default MultiSelectDropdown;
 
 MultiSelectDropdown.propTypes = {
-    options: PropTypes.array,
-    selectedOptions: PropTypes.array
+    onChange: PropTypes.func,
+    value: PropTypes.array
 };
