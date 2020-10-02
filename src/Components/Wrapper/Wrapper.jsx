@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
 `;
 
 export const ErrorBoundaryWrapper = styled(Wrapper)`
-  height: 335px;
+  height: calc(100vh - 350px);
   display: flex;
   justify-content: center;
   align-items: center;
