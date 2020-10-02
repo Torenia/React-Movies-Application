@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { MovieModalWindow } from '../MovieModalWindow/MovieModalWindow';
 import { DeleteMovieModalWrapper } from '../DeleteMovieModalWrapper/DeleteMovieModalWrapper';
@@ -9,8 +8,8 @@ import { MovieModalHeader } from '../MovieModalHeader/MovieModalHeader';
 import { Button } from '../Button/Button';
 import { deleteMovie } from '../../store/movies.reducer';
 
-export default function DeleteMovieModal(props) {
-    const { id } = props.match.params;
+export default function DeleteMovieModal() {
+    const { id } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
     const error = useSelector(store => store.error);
@@ -19,7 +18,7 @@ export default function DeleteMovieModal(props) {
         try {
             const data = await dispatch(deleteMovie(id));
             if(!data.error){
-                history.push('/');
+                history.goBack();
             }
         } catch (e) {
             console.error(error);
@@ -31,9 +30,7 @@ export default function DeleteMovieModal(props) {
         <MovieModalWindow>
             <DeleteMovieModalWrapper>
                 <MovieModalHeader>
-                    <Link to={'/'}>
-                        <span/>
-                    </Link>
+                    <span onClick={() => {history.goBack()}}/>
                     <h1>Delete Movie</h1>
                 </MovieModalHeader>
                 <p>Are you sure you want to delete this movie?</p>
@@ -43,6 +40,3 @@ export default function DeleteMovieModal(props) {
     )
 };
 
-DeleteMovieModal.propTypes = {
-    match: PropTypes.object.isRequired,
-};

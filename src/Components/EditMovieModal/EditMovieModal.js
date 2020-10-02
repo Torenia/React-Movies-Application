@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 
 import AddEditMovieModalForm from '../AddEditMovieModalForm/AddEditMovieModalForm';
 import { getMovieData } from '../../store/movies.reducer';
 
-export default function EditMovieModal(props) {
-    const { id } = props.match.params;
+export default function EditMovieModal() {
+    const { id } = useParams();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,8 +21,4 @@ export default function EditMovieModal(props) {
             movieId={id}
         />
     )
-};
-
-EditMovieModal.propTypes = {
-    match: PropTypes.object.isRequired,
 };
