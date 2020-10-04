@@ -90,7 +90,7 @@ const AddEditMovieModalForm = ({ header, showMovieIdRow, buttonName, movieId }) 
                 {({errors, touched, handleReset}) => (
                     <Form onReset={handleReset}>
                         <MovieModalHeader>
-                            <span onClick={() => {history.goBack()}}/>
+                            <span onClick={() => {history.push('/')}}/>
                             <h1>{header}</h1>
                         </MovieModalHeader>
                         {showMovieIdRow && <AddEditMovieFormRow>

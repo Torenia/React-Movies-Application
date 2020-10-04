@@ -15,7 +15,7 @@ export default function App() {
             <Router>
                 <Switch>
                     <Route path="/" component={ HomePage }/>
-                    <Route path="*" component={ NotFound }/>
+                    <Route exact path="*" component={ NotFound }/>
                 </Switch>
             </Router>
             <Footer/>
