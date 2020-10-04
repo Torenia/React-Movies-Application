@@ -3,13 +3,13 @@ import React, { useCallback, useEffect } from 'react';
 import { getMoviesList } from '../store/movies.reducer';
 import { useDispatch, useSelector } from 'react-redux';
 
-export function useMoviesData(sortBy, filterBy, searchText) {
+export function useMoviesData(sortBy, filterBy, searchText, urlSearch) {
     const dispatch = useDispatch();
     const state = useSelector(store=> store);
 
     const baseUrl = 'http://localhost:4000/movies';
 
-    let url = `${baseUrl}?sortBy=${sortBy}&&sortOrder=desc`;
+    let url = '';
 
     if (sortBy) {
         url = `${baseUrl}?sortBy=${sortBy}&&sortOrder=desc`;
@@ -21,8 +21,8 @@ export function useMoviesData(sortBy, filterBy, searchText) {
         url = `${baseUrl}?sortBy=${sortBy}&&sortOrder=desc`;
     }
 
-    if (searchText) {
-        url = `${baseUrl}?searchBy=title&&search=${searchText}`;
+    if (searchText || urlSearch) {
+        url = `${baseUrl}?searchBy=title&&search=${searchText || urlSearch}`;
     }
 
     const fetchMoviesList = useCallback(async () => {

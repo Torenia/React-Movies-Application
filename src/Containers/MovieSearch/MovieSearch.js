@@ -8,7 +8,7 @@ import { Context } from '../../Components/Context/Context';
 
 export default function MovieSearch() {
     const [input, setInput] = useState('');
-    const { setSearchText} = useContext(Context);
+    const { setSearchText } = useContext(Context);
 
     const handleSearch = ({ key }) => {
         if (key === 'Enter') {
@@ -29,7 +29,9 @@ export default function MovieSearch() {
                            defaultValue={input}
                            onInput={e => setInput(e.target.value)}
                            onKeyDown={handleSearch}/>
-                    <button onClick={() => setSearchText(input)}>Search</button>
+                    <Link to={`/movies/?searchBy=title&&search=${input}`}>
+                        <button onClick={() => setSearchText(input)}>Search</button>
+                    </Link>
                 </SearchBox>
             </MovieSearchWrapper>
         </Wrapper>

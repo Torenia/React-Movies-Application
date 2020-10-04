@@ -20,7 +20,7 @@ export default function MovieCard(props) {
                           onMouseLeave={() => setIsShownIcon(false)}>
             {isShownIcon && <MovieCardIcon onClick={onClick}/>}
             {isShowDropdown && <MovieCardEditDropdown showDropdown={setIsShownDropdown} id={props.id}/>}
-            <Link to={`/movies/${props.id}`}>
+            <Link to={`/movie/${props.id}`}>
                 <MovieCardImg>
                     <img src={props.srcImg} alt={props.title} width="300" height="455"/>
                 </MovieCardImg>

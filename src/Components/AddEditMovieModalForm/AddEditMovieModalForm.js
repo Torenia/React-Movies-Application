@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Formik,  Field, Form } from 'formik';
 
 import { MovieModalWindow } from '../MovieModalWindow/MovieModalWindow';
@@ -90,9 +90,7 @@ const AddEditMovieModalForm = ({ header, showMovieIdRow, buttonName, movieId }) 
                 {({errors, touched, handleReset}) => (
                     <Form onReset={handleReset}>
                         <MovieModalHeader>
-                            <Link to={'/'}>
-                                <span/>
-                            </Link>
+                            <span onClick={() => {history.push('/')}}/>
                             <h1>{header}</h1>
                         </MovieModalHeader>
                         {showMovieIdRow && <AddEditMovieFormRow>
