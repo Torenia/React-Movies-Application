@@ -21,7 +21,7 @@ export default function MovieDetails() {
 
     return (
         <Wrapper>
-            <SearchButton onClick={() => {history.goBack()}}><i className="fa fa-search fa-flip-horizontal"/>
+            <SearchButton onClick={() => {history.push('/')}}><i className="fa fa-search fa-flip-horizontal"/>
             </SearchButton>
             <MovieDetailsWrapper>
                 <MovieCardImg>

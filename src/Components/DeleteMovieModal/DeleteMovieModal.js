@@ -18,7 +18,7 @@ export default function DeleteMovieModal() {
         try {
             const data = await dispatch(deleteMovie(id));
             if(!data.error){
-                history.goBack();
+                history.push('/');
             }
         } catch (e) {
             console.error(error);
@@ -30,7 +30,7 @@ export default function DeleteMovieModal() {
         <MovieModalWindow>
             <DeleteMovieModalWrapper>
                 <MovieModalHeader>
-                    <span onClick={() => {history.goBack()}}/>
+                    <span onClick={() => {history.push('/')}}/>
                     <h1>Delete Movie</h1>
                 </MovieModalHeader>
                 <p>Are you sure you want to delete this movie?</p>

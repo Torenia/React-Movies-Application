@@ -9,7 +9,6 @@ import { Context } from './Components/Context/Context';
 import AddMovieModal from './Components/AddMovieModal/AddMovieModal';
 import EditMovieModal from './Components/EditMovieModal/EditMovieModal';
 import DeleteMovieModal from './Components/DeleteMovieModal/DeleteMovieModal';
-import NotFound from "./Components/NotFound/NotFound";
 
 export default function HomePage() {
     const [searchText, setSearchText] = useState('');
