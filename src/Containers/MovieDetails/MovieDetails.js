@@ -1,6 +1,5 @@
-import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Wrapper } from '../../Components/Wrapper/Wrapper';
@@ -10,10 +9,11 @@ import { MovieDetailsDescription } from '../../Components/MovieDetailsDescriptio
 import { MovieCardImg } from '../../Components/MovieCardImg/MovieCardImg';
 import { getMovieData } from '../../store/movies.reducer';
 
-export default function MovieDetails(props) {
-    const { id } = props.match.params;
+export default function MovieDetails() {
+    const { id } = useParams();
     const dispatch = useDispatch();
     const state = useSelector(store => store.movie);
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(getMovieData(id));
@@ -21,9 +21,8 @@ export default function MovieDetails(props) {
 
     return (
         <Wrapper>
-            <Link to={'/'}>
-            <SearchButton><i className="fa fa-search fa-flip-horizontal"/></SearchButton>
-            </Link>
+            <SearchButton onClick={() => {history.push('/')}}><i className="fa fa-search fa-flip-horizontal"/>
+            </SearchButton>
             <MovieDetailsWrapper>
                 <MovieCardImg>
                     <img src={state.poster_path} alt={state.title} width="300" height="455"/>
@@ -44,8 +43,3 @@ export default function MovieDetails(props) {
         </Wrapper>
     )
 };
-
-MovieDetails.propTypes = {
-    match: PropTypes.object.isRequired,
-};
-

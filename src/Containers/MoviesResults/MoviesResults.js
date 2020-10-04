@@ -1,36 +1,30 @@
 import React, {useContext, memo } from 'react';
+import { Route, useLocation, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { MoviesResultsWrapper } from '../../Components/MoviesWrapper/MoviesWrapper';
-import MovieCard from '../../Components/MovieCard/MovieCard';
 import  EmptyResultState from '../../Components/EmptyResultState/EmptyResultState';
 import { useMoviesData } from '../../Hooks/useMoviesData';
 import { Context } from '../../Components/Context/Context';
+import MoviesCards from '../MoviesCards/MoviesCards';
 
 function MoviesResults({ searchText }) {
     const sortBy = useContext(Context).sortBy;
     const filterBy = useContext(Context).filterBy;
-    const [state] = useMoviesData(sortBy, filterBy, searchText);
+    const useQuery = () => new URLSearchParams(useLocation().search);
+    const urlSearch = useQuery().get('search');
+
+    const [state] = useMoviesData(sortBy, filterBy, searchText, urlSearch);
 
     return (
         <MoviesResultsWrapper>
-            {state.totalAmount > 0
-                ? state.data.map(movie => (
-                    <MovieCard
-                        alt={movie.title}
-                        srcImg={movie.poster_path}
-                        title={movie.title}
-                        releaseDate={movie.release_date}
-                        genres={movie.genres}
-                        key={movie.id}
-                        src='../../Assets/movie.jpg'
-                        id={movie.id}
-                    />
-                ))
-                : <EmptyResultState/>}
+            <Switch>
+                <Route exact path="/movies" component={props => <MoviesCards state={state} {...props} />}/>
+                <Route path="/" component={ EmptyResultState }/>
+            </Switch>
         </MoviesResultsWrapper>
     )
-};
+}
 
 MoviesResults.protoTypes = {
     searchText: PropTypes.string
