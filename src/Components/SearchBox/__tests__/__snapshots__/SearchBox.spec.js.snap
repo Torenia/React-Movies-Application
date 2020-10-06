@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchBox /> should render a search box 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-left: 110px;
+}
+
+.c0 button {
+  color: #fff;
+  background-color: #f65261;
+  font-size: 15px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5%;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin: 0;
+  width: 160px;
+}
+
+.c0 input {
+  width: 415px;
+  height: 35px;
+  color: #fff;
+  margin-right: 15px;
+  padding-left: 20px;
+  background-color: #232323;
+  border: none;
+  border-radius: 5%;
+  opacity: 0.5;
+  outline: none;
+}
+
+.c0 input::-webkit-input-placeholder {
+  font-size: 15px;
+}
+
+.c0 input::-moz-placeholder {
+  font-size: 15px;
+}
+
+.c0 input:-ms-input-placeholder {
+  font-size: 15px;
+}
+
+.c0 input::placeholder {
+  font-size: 15px;
+}
+
+<div
+  className="c0"
+/>
+`;

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ErrorBoundaryWrapper /> should render error boundar wrapper 1`] = `
+.c0 {
+  padding: 0 10%;
+  background-color: #232323;
+  height: calc(100vh - 350px);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c0 h2 {
+  margin: 0;
+  color: #f00;
+}
+
+<div
+  className="sc-AxjAm c0"
+/>
+`;
+
+exports[`<Wrapper /> should render wrapper 1`] = `
+.c0 {
+  padding: 0 10%;
+  background-color: #232323;
+}
+
+<div
+  className="c0"
+/>
+`;

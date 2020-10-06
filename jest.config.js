@@ -1,9 +1,12 @@
 module.exports = {
   rootDir: './src/',
   moduleFileExtensions: ['js', 'jsx'],
-  collectCoverageFrom: ['src/**/*.{js,jsx}'],
+  collectCoverageFrom: ['<rootDir>/**/*.{js,jsx}'],
   snapshotSerializers: [
     'enzyme-to-json/serializer'
+  ],
+  setupFilesAfterEnv: [
+    './setupTests.js'
   ],
   moduleNameMapper: {
     '\\.(css|sass|scss)$': 'identity-obj-proxy',
