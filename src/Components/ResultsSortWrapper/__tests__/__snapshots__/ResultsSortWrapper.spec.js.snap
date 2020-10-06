@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ResultsSortWrapper /> should render results sort wrapper 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.c0 select {
+  background-color: #232323;
+  color: #fff;
+  border: none;
+  text-transform: uppercase;
+  margin-left: 15px;
+  outline: none;
+}
+
+<div
+  className="c0"
+/>
+`;

@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddEditMovieFormRow /> should render a movie form row 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 80px;
+  background-color: #232323;
+}
+
+.c0 label {
+  color: #f65261;
+  text-transform: uppercase;
+  margin: 10px 85px 10px 85px;
+  font-size: 14px;
+}
+
+.c0 input,
+.c0 select {
+  width: 415px;
+  height: 35px;
+  margin: 0 85px;
+  color: #fff;
+  padding-left: 20px;
+  background-color: #424242;
+  border: none;
+  border-radius: 3%;
+  opacity: 0.5;
+  outline: none;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  font-size: 15px;
+}
+
+.c0 input::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  font-size: 15px;
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  font-size: 15px;
+}
+
+.c0 input::placeholder,
+.c0 select::placeholder {
+  font-size: 15px;
+}
+
+.c0 select {
+  width: 435px;
+  height: 37px;
+}
+
+.c0:last-child {
+  height: 40px;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  padding: 20px 0;
+}
+
+.c0:nth-last-child(7) input {
+  background: right 2% center no-repeat url(assets/calendar_icon.jpg);
+  background-color: #424242;
+}
+
+.c0:nth-last-child(7) input[type='date'] {
+  height: 37px;
+  width: 417px;
+}
+
+.c0:nth-last-child(7) input[type='date']::-webkit-inner-spin-button,
+.c0:nth-last-child(7) input[type='date']::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+<div
+  className="c0"
+/>
+`;
