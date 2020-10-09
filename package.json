@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "test:coverage": "jest --coverage --collectCoverageFrom=!src/#coverage",
+    "test:coverage": "jest --coverage",
     "lint": "eslint src",
     "build:dev": "cross-env NODE_ENV=react webpack --config webpack.config.dev.js",
     "start:dev": "cross-env NODE_ENV=react DEV_SERVER=true webpack-dev-server --open --config webpack.config.dev.js",
@@ -44,6 +44,7 @@
     "enzyme-adapter-react-16": "^1.15.3",
     "enzyme-to-json": "^3.5.0",
     "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.12.0",
     "eslint-loader": "^4.0.2",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
