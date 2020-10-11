@@ -52,7 +52,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('MovieDetails', () => {
-    it('should pass', () => {
+    it('should close movie details', () => {
         const { getByRole } = render(<Provider store={store}><Router><MovieDetails/></Router></Provider>);
         fireEvent.click(getByRole('button'));
         expect(mockHistoryPush).toHaveBeenCalledWith('/');
