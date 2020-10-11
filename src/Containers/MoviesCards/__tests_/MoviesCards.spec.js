@@ -1,4 +1,4 @@
-import {render, cleanup} from '@testing-library/react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import React from 'react';
 import nock from 'nock';
@@ -7,10 +7,10 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import MoviesCards from '../MoviesCards';
-import { renderHook } from '@testing-library/react-hooks';
-import { useMoviesData } from '../../../Hooks/useMoviesData';
+import App from '../../../App';
 
 const moviesList = {
+    totalAmount: 2,
     data: [{
         id: 181808,
         title: "Star Wars: The Last Jedi",
@@ -54,25 +54,26 @@ describe('MoviesCards', () => {
 
 describe('GET movies', () => {
     const initialState = {
-        totalAmount: 31,
-        data: []
+        totalAmount: '',
+        data: [],
+        movie: {},
+        isLoading: false,
+        error: null
     }
     const middlewares = [thunk];
     const mockStore = configureStore(middlewares);
     let store = mockStore(initialState);
-    beforeEach(() => {
-        nock('http://localhost:9000')
-            .get('/movies')
-            .query({params: {searchBy: 'title', search: 'star'}})
-            .reply(200, moviesList);
-    })
-    afterEach(() => {
-        nock.restore();
-    })
     test('returns mock movies', async () => {
-        const state = await renderHook(() => useMoviesData());
-        const { getByText } = render(<Provider store={store}><Router><MoviesCards state={state}/></Router></Provider>)
-        expect(getByText('Star Wars: The Last Jedi')).not.toBeNull();
-        expect(state).toBe(moviesList)
+        const { getByText } = render(<Provider store={store}><App/></Provider>)
+        const searchBtn = getByText('Search');
+        fireEvent.click(searchBtn);
+        await (() => {
+            nock('http://localhost:4000')
+                .get('/movies/')
+                .query({params: {searchBy: 'title', search: 'star'}})
+                .reply(200, moviesList);
+            expect(getByText('Star Wars: The Last Jedi')).toBeInTheDocument();
+        });
     });
 });
+

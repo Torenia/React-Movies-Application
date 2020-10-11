@@ -18,7 +18,7 @@ export default function MovieCard(props) {
     return (
         <MovieCardWrapper onMouseEnter={() => setIsShownIcon(true)}
                           onMouseLeave={() => setIsShownIcon(false)}>
-            {isShownIcon && <MovieCardIcon onClick={onClick}/>}
+            {isShownIcon && <MovieCardIcon onClick={onClick} data-testid="dropdown-icon"/>}
             {isShowDropdown && <MovieCardEditDropdown showDropdown={setIsShownDropdown} id={props.id}/>}
             <Link to={`/movie/${props.id}`}>
                 <MovieCardImg>

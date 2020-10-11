@@ -2,7 +2,7 @@ module.exports = {
   rootDir: './src/',
   moduleFileExtensions: ['js', 'jsx'],
   collectCoverageFrom: ['<rootDir>/**/*.{js,jsx}'],
-  coveragePathIgnorePatterns: ['.*__snapshots__/.*', '.*#coverage/.*', '.*index.js.*'],
+  coveragePathIgnorePatterns: ['.*__snapshots__/.*', '.*#coverage/.*', '.*index.js.*', ".*store/.*"],
   snapshotSerializers: [
     'enzyme-to-json/serializer'
   ],

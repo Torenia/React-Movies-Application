@@ -7,10 +7,10 @@ import { MovieCardEditList } from '../MovieCardEditList/MovieCardEditList';
 export default function MovieCardEditDropdown({ showDropdown, id }) {
     return (
         <MovieCardEditList>
-            <button onClick={() => showDropdown(false)}/>
+            <button onClick={() => showDropdown(false)} data-testid="close-icon"/>
             <ul>
                 <Link to={`/edit/movie/${id}`}>
-                    <li>Edit</li>
+                    <li data-testid="edit-link">Edit</li>
                 </Link>
                 <Link to={`/delete/movie/${id}`}>
                     <li>Delete</li>
