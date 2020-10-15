@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MovieCardIcon /> should render a movie card icon 1`] = `
+.c0 {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 30px;
+  background: #232323;
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+}
+
+.c0:after {
+  content: "\\22EE";
+  display: inline-block;
+  color: #fff;
+}
+
+<button
+  className="c0"
+/>
+`;

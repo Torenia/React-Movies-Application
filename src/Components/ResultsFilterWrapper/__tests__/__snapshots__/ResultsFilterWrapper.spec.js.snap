@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ResultsFilterWrapper /> should render result filter wrapper 1`] = `
+.c0 {
+  padding: 20px 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  list-style-type: none;
+  margin-left: -10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+
+.c0 li {
+  color: #fff;
+  padding: 0 10px;
+}
+
+<ul
+  className="c0"
+/>
+`;

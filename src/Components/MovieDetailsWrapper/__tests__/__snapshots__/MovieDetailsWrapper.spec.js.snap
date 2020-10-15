@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MovieDetailsWrapper /> should render a movie details wrapper 1`] = `
+.c0 {
+  height: 455px;
+  background: rgb(67,67,67);
+  background: linear-gradient(90deg,rgba(70,70,70,1) 1%,rgba(37,37,90,1) 54%,rgba(70,70,70,1) 100%);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-around;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: space-around;
+  justify-content: space-around;
+  padding: 80px 60px 30px 60px;
+}
+
+.c0 div {
+  margin: 0 20px 0 0;
+}
+
+<div
+  className="c0"
+/>
+`;

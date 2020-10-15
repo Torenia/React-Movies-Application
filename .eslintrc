@@ -1,5 +1,6 @@
 {
   "parser": "babel-eslint",
+  "extends": [ "prettier", "prettier/react"],
   "parserOptions": {
     "ecmaVersion": 9,
     "sourceType": "module",
