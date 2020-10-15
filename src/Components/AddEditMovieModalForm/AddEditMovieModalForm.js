@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { Formik,  Field, Form } from 'formik';
@@ -28,18 +27,18 @@ const AddEditMovieModalForm = ({ header, showMovieIdRow, buttonName, movieId }) 
     const error = useSelector(store => store.error);
     const [selected, setSelected] = useState(prepareOptions(state?.genres));
 
-    return ReactDOM.createPortal(
+    return (
         <MovieModalWindow>
             <Formik
                 initialValues={{
-                id: state?.id,
-                title: state?.title || '',
-                release_date: state?.release_date || '',
-                poster_path: state?.poster_path || '',
-                genres: state?.genres || [],
-                overview: state?.overview || '',
-                runtime: state?.runtime || ''
-            }}
+                    id: state?.id,
+                    title: state?.title || '',
+                    release_date: state?.release_date || '',
+                    poster_path: state?.poster_path || '',
+                    genres: state?.genres || [],
+                    overview: state?.overview || '',
+                    runtime: state?.runtime || ''
+                }}
                 validate={values => {
                     const errors = {};
                     if (!values.title) {
@@ -87,10 +86,12 @@ const AddEditMovieModalForm = ({ header, showMovieIdRow, buttonName, movieId }) 
                     }
                 })}
             >
-                {({errors, touched, handleReset}) => (
+                {({ errors, touched, handleReset }) => (
                     <Form onReset={handleReset}>
                         <MovieModalHeader>
-                            <span onClick={() => {history.push('/')}}/>
+                            <span data-testid='close-popup' onClick={() => {
+                                history.push('/')
+                            }}/>
                             <h1>{header}</h1>
                         </MovieModalHeader>
                         {showMovieIdRow && <AddEditMovieFormRow>
@@ -109,7 +110,7 @@ const AddEditMovieModalForm = ({ header, showMovieIdRow, buttonName, movieId }) 
                                 id="title"
                                 name="title"
                             />
-                            {errors.title && touched.title ? <Error>{errors.title}</Error> : null}
+                            {errors.title && touched.title ? <Error data-testid='emailError'>{errors.title}</Error> : null}
                         </AddEditMovieFormRow>
                         <AddEditMovieFormRow>
                             <label htmlFor="date">Release date</label>
@@ -125,7 +126,8 @@ const AddEditMovieModalForm = ({ header, showMovieIdRow, buttonName, movieId }) 
                                 }}
                                 name="release_date"
                             />
-                            {errors.release_date && touched.release_date ? <Error>{errors.release_date}</Error> : null}
+                            {errors.release_date && touched.release_date
+                                ? <Error data-testid='emailError'>{errors.release_date}</Error> : null}
                         </AddEditMovieFormRow>
                         <AddEditMovieFormRow>
                             <label htmlFor="url">Movie URL</label>
@@ -135,7 +137,8 @@ const AddEditMovieModalForm = ({ header, showMovieIdRow, buttonName, movieId }) 
                                 id="url"
                                 name="poster_path"
                             />
-                            {errors.poster_path && touched.poster_path ? <Error>{errors.poster_path}</Error> : null}
+                            {errors.poster_path && touched.poster_path
+                                ? <Error data-testid='emailError'>{errors.poster_path}</Error> : null}
                         </AddEditMovieFormRow>
                         <MultiSelectDropdown
                             onChange={setSelected}
@@ -149,7 +152,8 @@ const AddEditMovieModalForm = ({ header, showMovieIdRow, buttonName, movieId }) 
                                 id="overview"
                                 name="overview"
                             />
-                            {errors.overview && touched.overview ? <Error>{errors.overview}</Error> : null}
+                            {errors.overview && touched.overview
+                                ? <Error data-testid='emailError'>{errors.overview}</Error> : null}
                         </AddEditMovieFormRow>
                         <AddEditMovieFormRow>
                             <label htmlFor="runtime">Runtime</label>
@@ -159,7 +163,8 @@ const AddEditMovieModalForm = ({ header, showMovieIdRow, buttonName, movieId }) 
                                 id="runtime"
                                 name="runtime"
                             />
-                            {errors.runtime && touched.runtime ? <Error>{errors.runtime}</Error> : null}
+                            {errors.runtime && touched.runtime
+                                ? <Error data-testid='emailError'>{errors.runtime}</Error> : null}
                         </AddEditMovieFormRow>
                         <AddEditMovieFormRow>
                             <ResetButton type="reset">Reset</ResetButton>
@@ -168,7 +173,7 @@ const AddEditMovieModalForm = ({ header, showMovieIdRow, buttonName, movieId }) 
                     </Form>
                 )}
             </Formik>
-        </MovieModalWindow>, document.getElementById('modal-root')
+        </MovieModalWindow>
     )
 }
 

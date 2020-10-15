@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NotFoundWrapper /> should render a not found wrapper 1`] = `
+.c0 {
+  width: 100%;
+  height: calc(100vh - 50px);
+  background-color: #232323;
+}
+
+.c0 h1 {
+  color: #fff;
+  font-weight: normal;
+  padding-top: 150px;
+  text-align: center;
+  margin: 0;
+}
+
+.c0 div {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c0 div:nth-last-child(2) {
+  color: red;
+  font-size: 200px;
+}
+
+.c0 div button {
+  margin: 0;
+  width: 200px;
+}
+
+<div
+  className="c0"
+/>
+`;

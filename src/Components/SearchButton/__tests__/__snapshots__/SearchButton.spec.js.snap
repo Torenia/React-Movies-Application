@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchButton /> should render a search button 1`] = `
+.c0 {
+  position: absolute;
+  top: 25px;
+  right: 165px;
+  background-color: unset;
+  border: unset;
+}
+
+.c0 i {
+  color: red;
+  font-size: 24px;
+}
+
+<button
+  className="c0"
+/>
+`;

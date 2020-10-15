@@ -9,8 +9,8 @@ export default function ResultsSort() {
     return (
         <ResultsSortWrapper>
             <div>Sort by</div>
-            <select onChange={e => setSortBy(e.target.value)}>
-                <option value="release_date">Release Date</option>
+            <select onChange={e => setSortBy(e.target.value)} data-testid="select">
+                <option value="release_date" data-testid="release-date">Release Date</option>
                 <option value="vote_count">Rating</option>
             </select>
         </ResultsSortWrapper>

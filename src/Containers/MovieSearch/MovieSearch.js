@@ -28,7 +28,8 @@ export default function MovieSearch() {
                            placeholder="What do you want to watch?"
                            defaultValue={input}
                            onInput={e => setInput(e.target.value)}
-                           onKeyDown={handleSearch}/>
+                           onKeyDown={handleSearch}
+                           data-testid='search-input'/>
                     <Link to={`/movies/?searchBy=title&&search=${input}`}>
                         <button onClick={() => setSearchText(input)}>Search</button>
                     </Link>
