@@ -8,8 +8,9 @@ import configureAppStore from './store/store';
 
 const rootElement = document.getElementById('root');
 const store = configureAppStore(window.PRELOADED_STATE);
+const renderMethod = module.hot ? ReactDOM.render : ReactDOM.hydrate;
 
-ReactDOM.hydrate(
+renderMethod(
     <React.StrictMode>
         <Provider store={store}>
             <Router>

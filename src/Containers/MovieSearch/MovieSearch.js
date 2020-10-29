@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Wrapper } from '../../Components/Wrapper/Wrapper';
@@ -16,6 +16,14 @@ export default function MovieSearch() {
         }
     };
 
+    const handleInput = useCallback((e) => {
+        setInput(e.target.value);
+    }, []);
+
+    const handleClick = useCallback(() => {
+        setSearchText(input);
+    }, []);
+
     return (
         <Wrapper>
             <MovieSearchWrapper>
@@ -27,11 +35,11 @@ export default function MovieSearch() {
                     <input type="text"
                            placeholder="What do you want to watch?"
                            defaultValue={input}
-                           onInput={e => setInput(e.target.value)}
+                           onInput={handleInput}
                            onKeyDown={handleSearch}
                            data-testid='search-input'/>
                     <Link to={`/movies/?searchBy=title&&search=${input}`}>
-                        <button onClick={() => setSearchText(input)}>Search</button>
+                        <button onClick={handleClick}>Search</button>
                     </Link>
                 </SearchBox>
             </MovieSearchWrapper>
