@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
@@ -26,6 +26,10 @@ const AddEditMovieModalForm = ({ header, showMovieIdRow, buttonName, movieId }) 
     const state = useSelector(store => store.data.find(item => item.id.toString() === movieId));
     const error = useSelector(store => store.error);
     const [selected, setSelected] = useState(prepareOptions(state?.genres));
+
+    const handleClose = useCallback(() => {
+        history.push('/');
+    }, []);
 
     return (
         <MovieModalWindow>
@@ -89,9 +93,7 @@ const AddEditMovieModalForm = ({ header, showMovieIdRow, buttonName, movieId }) 
                 {({ errors, touched, handleReset }) => (
                     <Form onReset={handleReset}>
                         <MovieModalHeader>
-                            <span data-testid='close-popup' onClick={() => {
-                                history.push('/')
-                            }}/>
+                            <span data-testid='close-popup' onClick={handleClose}/>
                             <h1>{header}</h1>
                         </MovieModalHeader>
                         {showMovieIdRow && <AddEditMovieFormRow>
