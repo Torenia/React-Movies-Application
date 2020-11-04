@@ -1,10 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { List } from 'immutable';
 
 export const initialState = {
     totalAmount: '',
-    data: List(),
+    data: [],
     movie: {},
     isLoading: false,
     error: null
@@ -81,7 +80,7 @@ export const moviesSlice = createSlice({
         },
         [getMoviesList.fulfilled]: (state, action) => ({
             ...state,
-            data: List(action.payload.data.data),
+            data: action.payload.data.data,
             totalAmount: action.payload.data.totalAmount,
             isLoading: false
         }),
@@ -93,7 +92,7 @@ export const moviesSlice = createSlice({
             state.isLoading = true;
         },
         [addMovie.fulfilled]: (state, action) => {
-            state.data = List([action.payload.data, ...state.data]);
+            state.data = [action.payload.data, ...state.data];
             state.totalAmount = state.totalAmount + 1;
             state.isLoading = false;
         },
@@ -105,7 +104,7 @@ export const moviesSlice = createSlice({
             state.isLoading = true;
         },
         [deleteMovie.fulfilled]: (state, action) => {
-            state.data = List(state.data.filter(item => item.id.toString() !== action.payload));
+            state.data = state.data.filter(item => item.id.toString() !== action.payload);
             state.totalAmount = state.totalAmount - 1;
             state.isLoading = false;
         },
@@ -119,7 +118,7 @@ export const moviesSlice = createSlice({
         [updateMovie.fulfilled]: (state, action) => {
             if (state.movie.id === action.payload.data.id) {
                 state.movie = {...action.payload.data}
-                state.data = List(state.data.map((movie) => movie.id === action.payload.data.id ? {...state.movie} : movie));
+                state.data = state.data.map((movie) => movie.id === action.payload.data.id ? {...state.movie} : movie);
             }
         },
         [updateMovie.rejected]: (state, action) => {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 import App from './App';
 import configureAppStore from './store/store';
@@ -13,9 +12,7 @@ const renderMethod = module.hot ? ReactDOM.render : ReactDOM.hydrate;
 renderMethod(
     <React.StrictMode>
         <Provider store={store}>
-            <Router>
-                <App />
-            </Router>
+            <App />
         </Provider>
     </React.StrictMode>,
     rootElement

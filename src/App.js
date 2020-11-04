@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import './index.scss';
 import { hot } from 'react-hot-loader';
 
@@ -19,7 +19,8 @@ function App() {
     const [searchText, setSearchText] = useState('');
 
     return (
-            <Context.Provider value={{ searchText, setSearchText }}>
+        <Context.Provider value={{ searchText, setSearchText }}>
+            <Router>
                 <ErrorBoundary>
                     <Header/>
                     <Switch>
@@ -31,10 +32,11 @@ function App() {
                         <Route path="*" component={ NotFound }/>
                     </Switch>
                     <Route strict exact path={['/', '/movies/', '/edit/movie/:id', '/add/movie',
-                            '/delete/movie/:id']} component={ MoviesList }/>
+                        '/delete/movie/:id']} component={ MoviesList }/>
                     <Footer/>
                 </ErrorBoundary>
-            </Context.Provider>
+            </Router>
+        </Context.Provider>
     );
 }
 
