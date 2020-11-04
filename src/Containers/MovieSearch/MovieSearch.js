@@ -22,7 +22,7 @@ export default function MovieSearch() {
 
     const handleClick = useCallback(() => {
         setSearchText(input);
-    }, []);
+    }, [input]);
 
     return (
         <Wrapper>
