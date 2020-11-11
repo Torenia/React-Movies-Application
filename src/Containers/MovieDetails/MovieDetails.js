@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,7 +9,7 @@ import { MovieDetailsDescription } from '../../Components/MovieDetailsDescriptio
 import { MovieCardImg } from '../../Components/MovieCardImg/MovieCardImg';
 import { getMovieData } from '../../store/movies.reducer';
 
-export default function MovieDetails() {
+function MovieDetails() {
     const { id } = useParams();
     const dispatch = useDispatch();
     const state = useSelector(store => store.movie);
@@ -19,9 +19,13 @@ export default function MovieDetails() {
         dispatch(getMovieData(id));
     }, [id]);
 
+    const handleClose = useCallback(() => {
+        history.push('/');
+    }, []);
+
     return (
         <Wrapper>
-            <SearchButton onClick={() => {history.push('/')}}><i className="fa fa-search fa-flip-horizontal"/>
+            <SearchButton onClick={handleClose}><i className="fa fa-search fa-flip-horizontal"/>
             </SearchButton>
             <MovieDetailsWrapper>
                 <MovieCardImg>
@@ -42,4 +46,6 @@ export default function MovieDetails() {
             </MovieDetailsWrapper>
         </Wrapper>
     )
-};
+}
+
+export default memo(MovieDetails);

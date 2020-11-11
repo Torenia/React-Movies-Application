@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -15,9 +15,17 @@ export default function MovieCard(props) {
     const [isShowDropdown, setIsShownDropdown] = useState(false);
     const onClick = () => setIsShownDropdown(true);
 
+    const showIcon = useCallback(() => {
+        setIsShownIcon(true);
+    }, []);
+
+    const hideIcon = useCallback(() => {
+        setIsShownIcon(false);
+    }, []);
+
     return (
-        <MovieCardWrapper onMouseEnter={() => setIsShownIcon(true)}
-                          onMouseLeave={() => setIsShownIcon(false)}>
+        <MovieCardWrapper onMouseEnter={showIcon}
+                          onMouseLeave={hideIcon}>
             {isShownIcon && <MovieCardIcon onClick={onClick} data-testid="dropdown-icon"/>}
             {isShowDropdown && <MovieCardEditDropdown showDropdown={setIsShownDropdown} id={props.id}/>}
             <Link to={`/movie/${props.id}`}>

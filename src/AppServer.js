@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch, StaticRouter as Router } from 'react-router-dom';
 import './index.scss';
 import { hot } from 'react-hot-loader';
 
@@ -15,7 +15,7 @@ import EditMovieModal from './Components/EditMovieModal/EditMovieModal';
 import DeleteMovieModal from './Components/DeleteMovieModal/DeleteMovieModal';
 import NotFound from './Components/NotFound/NotFound';
 
-function App() {
+function AppServer() {
     const [searchText, setSearchText] = useState('');
 
     return (
@@ -40,4 +40,4 @@ function App() {
     );
 }
 
-export default hot(module)(App);
+export default hot(module)(AppServer);

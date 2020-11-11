@@ -26,11 +26,15 @@ export default function DeleteMovieModal() {
         }
     }, [dispatch, id]);
 
+    const handleClose = useCallback(() => {
+        history.push('/');
+    }, []);
+
     return (
         <MovieModalWindow>
             <DeleteMovieModalWrapper>
                 <MovieModalHeader>
-                    <span onClick={() => {history.push('/')}} data-testid ="close-delete-movie-modal"/>
+                    <span onClick={handleClose} data-testid ="close-delete-movie-modal"/>
                     <h1>Delete Movie</h1>
                 </MovieModalHeader>
                 <p>Are you sure you want to delete this movie?</p>
