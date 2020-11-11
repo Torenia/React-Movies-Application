@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 
-import App from './App';
+import AppServer from './AppServer';
 import configureAppStore from './store/store';
 
 function renderHTML(html, preloadedState) {
@@ -38,7 +38,7 @@ export default function serverRenderer() {
     const renderRoot = () => (
         <Provider store={store}>
           <StaticRouter location={req.url} context={context}>
-            <App />
+            <AppServer />
           </StaticRouter>
         </Provider>
     );
